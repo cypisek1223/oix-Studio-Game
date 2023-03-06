@@ -7,15 +7,18 @@ public class RayCast2D : MonoBehaviour
     public Camera camera;
 
     public Transform shotPoint;
+    public Transform obstacleTransform;
     public Transform tagChildObs;
-
     public GameObject obstacle;
+    public GameObject crossHair;
     public GameObject Rocket;
     public GameObject Gun;
 
     public float rocketSpeed;
+    public float distancBeetewenTwoObstcle;
     public int how = 0;
     public bool inRange;
+    public bool ifShoot;
 
     public float time = 0;
     public float Couldown;
@@ -26,30 +29,30 @@ public class RayCast2D : MonoBehaviour
         {
             obstacle = null;
         }
-        RaycastHit2D rayHit = Physics2D.GetRayIntersection(Camera.main.ScreenPointToRay(Input.mousePosition));
-        //Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-        //if (Physics.Raycast(ray, out hit))
-        //{
-        //Debug.LogError("Ray Touch:"+rayHit);
-        Transform objectHit = rayHit.transform;
-        if (objectHit == tagChildObs)
+        RaycastHit hit;
+        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
         {
-            //Debug.LogError("Dotyka!!!!!!!!! ");
-            Vector2 Direction = obstacle.transform.position - transform.position;
-            Gun.transform.up = Direction;
-            if (inRange)
+            Debug.LogError(ray);
+            Transform objectHit = hit.transform;
+            Debug.Log(objectHit);
+            if (objectHit == tagChildObs)
             {
-                if (time <= Time.time)
+                Vector3 Direction = obstacle.transform.position - transform.position;
+                Gun.transform.up = Direction;
+                if (inRange)
                 {
-                    time += Time.time + Couldown;
-                    GameObject RocketIns = Instantiate(Rocket, shotPoint.position, Quaternion.identity);
-                    RocketIns.transform.rotation = shotPoint.rotation;
-                    RocketIns.GetComponent<Rigidbody2D>().AddForce(Direction * rocketSpeed);
-                    how--;
+                    if (time <= Time.time)
+                    {
+                        time += Time.time + Couldown;
+                        GameObject RocketIns = Instantiate(Rocket, shotPoint.position, Quaternion.identity);
+                        RocketIns.transform.rotation = shotPoint.rotation;
+                        RocketIns.GetComponent<Rigidbody>().AddForce(Direction * rocketSpeed);
+                        how--;
+                    }
                 }
             }
         }
-        //}
 
 
     }

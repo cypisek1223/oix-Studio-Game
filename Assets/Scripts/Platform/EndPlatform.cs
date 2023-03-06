@@ -5,18 +5,15 @@ using UnityEngine;
 public class EndPlatform : MonoBehaviour
 {
     public bool endPlatform=false;
+    public bool end;
     public GameObject loadingText;
     private void Update()
     {
-        loadingText.active = false;
-        if (GameManager.instance.point >= GameManager.instance.allPoint)
-        {
-            loadingText.active = true;
-        }
+        endScript();
     }
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag== "Player" && GameManager.instance.point >= GameManager.instance.allPoint)
+        if (other.tag== "Player" && (GameManager.instance.point >= GameManager.instance.allPoint|| end))
         {
             Debug.LogError("On End Platform <-------------------------------------------------");
             //if (GameManager.instance.touchController.playerVelocity == 0)        
@@ -25,6 +22,14 @@ public class EndPlatform : MonoBehaviour
             endPlatform = true;
             GameManager.instance.kanvasESC.ifEndAnimation = true;
             Debug.LogError("ActiveMove"+GameManager.instance.touchController.activeMove);
+        }
+    }
+    public void endScript()
+    {
+        loadingText.active = false;
+        if (GameManager.instance.point >= GameManager.instance.allPoint)
+        {
+            loadingText.active = true;
         }
     }
 }

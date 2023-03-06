@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class StartCanvas : MonoBehaviour
 {
-    
     public void StartLevelManager()
     {
         SceneManager.LoadScene("LevelManager");

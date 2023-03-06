@@ -11,6 +11,7 @@ public class OutOfAreaGame : MonoBehaviour
     public float meter;
     public float addTime;
     public float couldown;
+    public bool on;
     public void Start()
     {
         outOfAreaGame.enabled = false;
@@ -23,29 +24,32 @@ public class OutOfAreaGame : MonoBehaviour
         {
             Debug.LogWarning("Przegrana");
         }
-    
-     }
-    public void OnTriggerStay2D(Collider2D other)
-    {
-        outOfAreaGame.enabled = true;
-        if (other.tag == "Player")
+        if (on)
         {
             if (addTime <= Time.time)
             {
                 addTime = Time.time + couldown;
-                meter-=1;
+                meter -= 1;
             }
-
-        OutOfAreaGameAnimator.SetBool("OutOfArea", true);
+        }
+    
+     }
+    public void OnTriggerEnter2D(Collider2D other)
+    {    
+        if (other.tag == "Player")
+        {
+            outOfAreaGame.enabled = true;
+            on = true;
+            OutOfAreaGameAnimator.SetBool("OutOfArea", true);
         }
     }
     public void OnTriggerExit2D(Collider2D other)
-    {
-        
+    {       
         if (other.tag == "Player")
         {
             outOfAreaGame.enabled = false;
-            OutOfAreaGameAnimator.SetBool("OutOfArea", false);
+            on = false;
+            //OutOfAreaGameAnimator.SetBool("OutOfArea", false);
             meter = 5;
         }
 

@@ -8,6 +8,7 @@ public class ShipStrike : MonoBehaviour
     Rigidbody2D rb;
     public float shipVelocity;
     public float time=0;
+    public float damegVelocity;
     public TouchController player;
 
     void Start()
@@ -18,25 +19,22 @@ public class ShipStrike : MonoBehaviour
     {
         shipVelocity = rb.velocity.magnitude;
     }
-    public void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
-        //shipVelocity = rb.velocity.magnitude;
-
-        if (other.tag == "Ground")
+        if (other.tag == "Ground"  || other.tag == "Obstacle")
         {
-            ShipHit();            
+            ShipHit();
         }
     }
     public void ShipHit()
     {
         var Hitspeed = rb.velocity.magnitude;
         //Debug.LogError("Ship Speed" + "    " + "IF" + " " + Hitspeed);
-        if (Hitspeed >= 11&& time < Time.time)
+        if (Hitspeed >= damegVelocity && time < Time.time)
         {
             float time = Time.time + 5;
             Debug.LogError("UDERZENIE Z OBRAZENIAMI");
             player.life-=1;
         }
-
     }
 }

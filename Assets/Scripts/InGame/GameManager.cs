@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public RopeHook ropeHook;
     public Rope rope;
     public EndPlatform endPlatform;
+    public RayCast rayCats;
+    public ObstacleCheck obstacleCheck;
+    public Indicator indicator;
+    public PlayerManager playerManager;
 
     public bool startGame;
 

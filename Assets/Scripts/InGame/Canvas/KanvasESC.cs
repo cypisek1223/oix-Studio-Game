@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class KanvasESC : MonoBehaviour
 {
     public TouchController tC;
-    public Canvas CanvasEscPanel;
-    public Canvas CanvasEndPanel;
+    public Canvas canvasEscPanel;
+    public Canvas canvasEndPanel;
     public Animator animPanel;
     public Animator animStartText;
     public Animator animEnd;
@@ -32,8 +32,8 @@ public class KanvasESC : MonoBehaviour
     //public float rellyTime = Time.time;
     public void Start()
     {
-        CanvasEscPanel.enabled = true;
-        CanvasEndPanel.enabled = false;
+        canvasEscPanel.enabled = true;
+        canvasEndPanel.enabled = false;
         invoke = false;
         addTimer = 0;
 
@@ -44,37 +44,7 @@ public class KanvasESC : MonoBehaviour
         textTime.text = addToText.ToString();
         textPoint.text = GameManager.instance.point+"/"+GameManager.instance.allPoint;
         timer = GameManager.instance.touchController.activeMove;
-        // if (joyStickRopeSee)
-        // {
-        //     //Rope Script
-        //     //rope.creativeSj = true;
-        //     //rope.postTwo = true;
-        //     if (GameManager.instance.rope.slider.value < 100)
-        //     {
-        //
-        //         GameManager.instance.ropeHook.drop = true;
-        //     }
-        //
-        //
-        //     //JoyStick Animation
-        //     GameManager.instance.rope.anim.SetBool("On", true);
-        //     GameManager.instance.rope.anim.SetBool("Off", false);
-        // }
-        // if (!joyStickRopeSee)
-        //{
-        //    //Rope Script
-        //    if (!GameManager.instance.ropeHook.grasp)
-        //    {
-        //        //rope.creativeSj = false;
-        //        //rope.postTwo = false;
-        //        GameManager.instance.rope.slider.value = 0;
-        //    }
-        //    //rope.onePosition = true;
-        //    //JoyStick Animation
-        //    GameManager.instance.rope.anim.SetBool("On", false);
-        //    GameManager.instance.rope.anim.SetBool("Off", true);
-        //} 
-
+     
         if (Input.touchCount > 0)
         {
             //startText.sprite = Go;
@@ -89,9 +59,9 @@ public class KanvasESC : MonoBehaviour
 
         }
 
-        if (timer && addTimer <= Time.time)
+        if (addTimer <= Time.time)
            {
-            addTimer = Time.time + 0.2f;
+              addTimer = Time.time + 0.2f;
               addToText += howAdd;         
            }
         if (ifStarAnimation)
@@ -101,7 +71,7 @@ public class KanvasESC : MonoBehaviour
         if (ifEndAnimation)
         {
             animEnd.SetBool("endAnimation", true);
-            CanvasEndPanel.enabled = true;
+            canvasEndPanel.enabled = true;
         }   
     }
     public void FreezTime()
@@ -115,13 +85,13 @@ public class KanvasESC : MonoBehaviour
     
     public void BtnESC()
     {
-        CanvasEscPanel.enabled = true;
+        canvasEscPanel.enabled = true;
 
         animPanel.SetBool("On",true);
         animPanel.SetBool("Off", false);
         GameManager.instance.touchController.activeMove = false;
       
-       Invoke(nameof(FreezTime), 0.75f);
+       //Invoke(nameof(FreezTime), 0.75f);
     }
     public void BtnReturn()
     {
@@ -129,10 +99,10 @@ public class KanvasESC : MonoBehaviour
         animPanel.SetBool("On", false);
         animPanel.SetBool("Off", true);
         //Invoke("StartTime", 0);
-        if (GameManager.instance.endPlatform ==false)
-        {
+        //if (GameManager.instance.endPlatform ==false)
+        //{
             GameManager.instance.touchController.activeMove = true;
-        }
+        //}
     }
     public void BtnReturnLevelMenu()
     {
@@ -143,6 +113,10 @@ public class KanvasESC : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    public void BtnNextLvl1()
+    {
+        SceneManager.LoadScene("Level1");
+    }
     public void BtnNextLvl2()
     {
         SceneManager.LoadScene("Level2");
@@ -150,6 +124,10 @@ public class KanvasESC : MonoBehaviour
     public void BtnNextLvl3()
     {
         SceneManager.LoadScene("Level3");
+    }
+    public void BtnTutorial2()
+    {
+        SceneManager.LoadScene("TutorialLevel2");
     }
     public void RopeLine() 
     {

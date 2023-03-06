@@ -55,9 +55,9 @@ public class Cam : MonoBehaviour
     private Vector3 Z;
     public void Awake()
     {
-        mainCamera = Central.gameObject;
-        transform.position = target.position;
-        outOfRange.active = false;
+       mainCamera = Central.gameObject;
+      //transform.position = target.position;
+      outOfRange.active = false;
         
     }
     private void FixedUpdate()
